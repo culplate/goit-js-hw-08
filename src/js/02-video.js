@@ -8,7 +8,13 @@ const throttled = throttle(({ seconds }) => {
 }, 1000);
 
 player.on('loaded', function () {
-    player.setCurrentTime(+localStorage.getItem('videoplayer-current-time'));
+    // new version, to be tested | WTF
+    let currentTime = localStorage.getItem('videoplayer-current-time');
+    if (currentTime != null) {
+        player.setCurrentTime(+currentTime);
+    } else {
+        return;
+    }
 });
 
 player.on('timeupdate', throttled);
